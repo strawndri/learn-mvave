@@ -1,0 +1,10 @@
+{
+  "name": "learn-mvave",
+  "private": true,
+  "type": "module",
+  "description": "Interactive lessons for learning to play the M-VAVE SMK-37 keyboard.",
+  "scripts": {
+    "start": "python3 -m http.server 8000",
+    "test": "node --test tests/*.test.js"
+  }
+}
