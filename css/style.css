@@ -27,8 +27,8 @@ pre code { background: none; padding: 0; }
 
 /* ---------- espaço ---------- */
 .space { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--bg); }
-.planet { position: absolute; inset: 0; background: url(../assets/planeta-1920.jpg) 62% 50% / cover no-repeat; }
-@media (min-width: 1500px), (min-resolution: 1.5dppx) { .planet { background-image: url(../assets/planeta-3840.jpg); } }
+.planet { position: absolute; inset: 0; background: url(../assets/wallpaper-1920.jpg) 62% 50% / cover no-repeat; }
+@media (min-width: 1500px), (min-resolution: 1.5dppx) { .planet { background-image: url(../assets/wallpaper-3840.jpg); } }
 .veil { position: absolute; inset: 0; background: rgba(6, 3, 11, .48); }
 .stars { position: absolute; inset: 0; width: 100%; height: 100%; }
 .meteor { position: absolute; transform-origin: left center; overflow: visible; }

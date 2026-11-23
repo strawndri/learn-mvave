@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Gera o papel de parede do site (planeta gasoso e céu estrelado) por código.
+"""Render the site wallpaper (a gas giant over a starry sky) procedurally.
 
-Uso: python3 tools/gerar-planeta.py [largura] [saida.jpg]
-Padrão: 3840 x 2160 em assets/planeta-3840.jpg, mais uma versão de 1920 pixels.
-Precisa de numpy e Pillow.
+Usage: python3 tools/generate-wallpaper.py [width] [output.jpg]
+Default: 3840 x 2160 written to assets/wallpaper-3840.jpg. Make the 1920 px
+version by downscaling that file. Requires numpy and Pillow.
 """
 import sys
 import numpy as np
@@ -11,22 +11,22 @@ from PIL import Image
 
 W = int(sys.argv[1]) if len(sys.argv) > 1 else 3840
 H = W * 9 // 16
-OUT = sys.argv[2] if len(sys.argv) > 2 else 'assets/planeta-3840.jpg'
-S = W / 3840.0  # escala em relação ao tamanho de referência
+OUT = sys.argv[2] if len(sys.argv) > 2 else 'assets/wallpaper-3840.jpg'
+S = W / 3840.0  # scale relative to the 3840 px reference size
 
-# ---------- ruído de valor 3D ----------
+# ---------- 3D value noise ----------
 N = 64
-_G = {}
+_GRIDS = {}
 
 
-def grid(seed):
-    if seed not in _G:
-        _G[seed] = np.random.default_rng(seed).random((N, N, N), dtype=np.float32)
-    return _G[seed]
+def noise_grid(seed):
+    if seed not in _GRIDS:
+        _GRIDS[seed] = np.random.default_rng(seed).random((N, N, N), dtype=np.float32)
+    return _GRIDS[seed]
 
 
-def vnoise(seed, x, y, z):
-    G = grid(seed)
+def value_noise(seed, x, y, z):
+    G = noise_grid(seed)
     xi = np.floor(x).astype(np.int32); yi = np.floor(y).astype(np.int32); zi = np.floor(z).astype(np.int32)
     xf = x - xi; yf = y - yi; zf = z - zi
     xf = xf * xf * (3 - 2 * xf); yf = yf * yf * (3 - 2 * yf); zf = zf * zf * (3 - 2 * zf)
@@ -38,23 +38,23 @@ def vnoise(seed, x, y, z):
     return (c00 * (1 - yf) + c10 * yf) * (1 - zf) + (c01 * (1 - yf) + c11 * yf) * zf
 
 
-def fbm(seed, x, y, z, octaves, lac=2.03, gain=0.5):
+def fractal_noise(seed, x, y, z, octaves, lac=2.03, gain=0.5):
     total = np.zeros_like(x, dtype=np.float32)
     amp, f, norm = 1.0, 1.0, 0.0
     for o in range(octaves):
-        total += amp * (vnoise(seed + o, x * f + o * 17.3, y * f + o * 9.1, z * f + o * 5.7) - 0.5) * 2
+        total += amp * (value_noise(seed + o, x * f + o * 17.3, y * f + o * 9.1, z * f + o * 5.7) - 0.5) * 2
         norm += amp
         amp *= gain
         f *= lac
     return total / norm
 
 
-def smooth(a, b, x):
+def smoothstep(a, b, x):
     t = np.clip((x - a) / (b - a), 0, 1)
     return t * t * (3 - 2 * t)
 
 
-def hexrgb(h):
+def hex_to_rgb(h):
     h = h.lstrip('#')
     return [int(h[i:i + 2], 16) / 255 for i in (0, 2, 4)]
 
@@ -66,23 +66,23 @@ PALETTE = [(0.00, '#E36DB4'), (0.12, '#F4A9D0'), (0.22, '#F6E7C6'), (0.32, '#D6D
 def palette(t):
     t = np.mod(t, 1.0)
     xs = [p[0] for p in PALETTE]
-    cols = np.array([hexrgb(p[1]) for p in PALETTE], dtype=np.float32)
+    cols = np.array([hex_to_rgb(p[1]) for p in PALETTE], dtype=np.float32)
     return np.stack([np.interp(t, xs, cols[:, c]) for c in range(3)], axis=-1).astype(np.float32)
 
 
-# ---------- céu ----------
-def sky():
+# ---------- sky ----------
+def draw_sky():
     rng = np.random.default_rng(11)
     img = np.zeros((H, W, 3), dtype=np.float32)
     img[:] = np.array([0.012, 0.006, 0.028], dtype=np.float32)
 
-    # nebulosas azul-violeta, mais fortes no alto
+    # blue-violet nebulae, stronger near the top
     yy, xx = np.mgrid[0:H:4, 0:W:4].astype(np.float32)
     nx, ny = xx / W, yy / H
     zero = np.zeros_like(nx)
-    n1 = fbm(31, nx * 3.2, ny * 3.2, zero + 1.7, 5)
-    n2 = fbm(41, nx * 6.5 + 3, ny * 6.5, zero + 4.1, 4)
-    neb = 1.4 * smooth(0.05, 0.75, n1) * (0.35 + 0.65 * smooth(0.0, 0.7, n2)) * (1.15 - ny)
+    n1 = fractal_noise(31, nx * 3.2, ny * 3.2, zero + 1.7, 5)
+    n2 = fractal_noise(41, nx * 6.5 + 3, ny * 6.5, zero + 4.1, 4)
+    neb = 1.4 * smoothstep(0.05, 0.75, n1) * (0.35 + 0.65 * smoothstep(0.0, 0.7, n2)) * (1.15 - ny)
     neb = np.clip(neb, 0, 1)
     tint = np.stack([0.20 * neb, 0.17 * neb, 0.52 * neb], axis=-1) * 0.55
     tint2 = np.stack([0.42 * (n2 > 0.3) * neb, 0.10 * neb, 0.32 * neb], axis=-1) * 0.25
@@ -105,7 +105,7 @@ def sky():
         u = rng.random()
         add_gauss(rng.random() * W, rng.random() * H, (0.6 + 0.7 * u) * max(S, 0.6) * 1.2, cols[rng.integers(len(cols))], 0.25 + 0.9 * u ** 3, 5)
 
-    # estrelas brilhantes com raios, mais comuns no alto
+    # bright stars with diffraction spikes, more common near the top
     spots = [(0.10, 0.10), (0.30, 0.06), (0.52, 0.12), (0.80, 0.08), (0.93, 0.20), (0.07, 0.34), (0.40, 0.30), (0.62, 0.05)]
     for i in range(28):
         if i < len(spots):
@@ -135,8 +135,8 @@ def sky():
     return img
 
 
-# ---------- planeta ----------
-def planet(img):
+# ---------- planet ----------
+def draw_planet(img):
     R = 1500.0 * S
     cx, cy = 0.665 * W, 1.02 * H
     tau = np.deg2rad(-13.0)
@@ -152,7 +152,7 @@ def planet(img):
     r2 = px * px + py * py
     r = np.sqrt(r2)
 
-    # halo fora do disco
+    # atmosphere halo outside the disc
     d = np.clip(r - 1.0, 0, None)
     lit_dir = np.clip((px * L[0] + py * L[1]) / np.maximum(r, 1e-3) * 0.5 + 0.55, 0, 1)
     halo = np.exp(-d * 11.0) * 0.55 * (d >= 0) * lit_dir
@@ -167,30 +167,30 @@ def planet(img):
 
     qx = pxm * ct - pym * st
     qy = pxm * st + pym * ct
-    w1 = fbm(101, qx * 1.4, qy * 1.2, z * 1.4, 5)
-    w2 = fbm(201, qx * 3.0 + w1 * 0.8, qy * 8.0, z * 3.0 + w1 * 0.6, 5)
-    fine = fbm(301, qx * 9.0, qy * 28.0, z * 9.0, 4)
+    w1 = fractal_noise(101, qx * 1.4, qy * 1.2, z * 1.4, 5)
+    w2 = fractal_noise(201, qx * 3.0 + w1 * 0.8, qy * 8.0, z * 3.0 + w1 * 0.6, 5)
+    fine = fractal_noise(301, qx * 9.0, qy * 28.0, z * 9.0, 4)
     b = qy * 2.5 + 0.95 * w1 + 0.42 * w2 + 0.12 * fine
     col = palette(b * 0.52 + 0.05)
     gray = col.mean(axis=-1, keepdims=True)
-    col = gray + (col - gray) * 0.82  # menos saturado
+    col = gray + (col - gray) * 0.82  # less saturated
 
-    cl = fbm(401, qx * 5.0 + w1 * 0.9, qy * 15.0, z * 5.0, 5)
-    cloud = smooth(0.12, 0.58, cl) * (0.55 + 0.45 * smooth(-0.2, 0.5, w2))
+    cl = fractal_noise(401, qx * 5.0 + w1 * 0.9, qy * 15.0, z * 5.0, 5)
+    cloud = smoothstep(0.12, 0.58, cl) * (0.55 + 0.45 * smoothstep(-0.2, 0.5, w2))
     col = col * (1 - 0.55 * cloud[..., None]) + np.array([1.0, 0.96, 0.9], dtype=np.float32) * 0.55 * cloud[..., None]
     shade_var = 1.0 + 0.10 * fine
     col *= shade_var[..., None]
 
     nrm = np.stack([pxm, pym, z], axis=-1)
     diff = np.clip(nrm @ L, 0, 1)
-    light = 0.10 + 0.95 * smooth(0.0, 0.98, diff)
+    light = 0.10 + 0.95 * smoothstep(0.0, 0.98, diff)
     light *= 0.50 + 0.50 * np.sqrt(z)
     col *= light[..., None]
     shadow_tint = np.array([0.10, 0.04, 0.22], dtype=np.float32)
-    col += shadow_tint * (1 - smooth(0.0, 0.5, diff))[..., None] * 0.55
+    col += shadow_tint * (1 - smoothstep(0.0, 0.5, diff))[..., None] * 0.55
 
     rim = (1 - z) ** 2.4
-    col += (rim * (0.35 + 0.65 * smooth(-0.2, 0.7, diff)))[..., None] * np.array([0.95, 0.50, 0.85], dtype=np.float32) * 0.55
+    col += (rim * (0.35 + 0.65 * smoothstep(-0.2, 0.7, diff)))[..., None] * np.array([0.95, 0.50, 0.85], dtype=np.float32) * 0.55
     col = np.clip(col, 0, 1.2)
 
     a = alpha[idx][..., None].astype(np.float32)
@@ -200,14 +200,14 @@ def planet(img):
 
 
 def main():
-    img = sky()
-    img = planet(img)
+    img = draw_sky()
+    img = draw_planet(img)
     img = np.clip(img, 0, 1)
     rng = np.random.default_rng(5)
-    img = img + (rng.random(img.shape, dtype=np.float32) - 0.5) / 255.0  # evita faixas
+    img = img + (rng.random(img.shape, dtype=np.float32) - 0.5) / 255.0  # dithering avoids color banding
     out = Image.fromarray(np.clip(img * 255 + 0.5, 0, 255).astype(np.uint8))
     out.save(OUT, quality=86, optimize=True, progressive=True, subsampling='4:2:0')
-    print('salvo', OUT, out.size)
+    print('saved', OUT, out.size)
 
 
 if __name__ == '__main__':

@@ -50,7 +50,7 @@
       '<svg class="stars" width="100%" height="100%" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">' + stars + '</svg>' +
       meteor('m1', 220) + meteor('m2', 180) +
       '<div class="deco u1">' + ufo(170, '#F07CC0') + '</div><div class="deco u2">' + ufo(104, '#A6F26B') + '</div><div class="deco u3">' + ufo(60, '#7FE3E8') + '</div><div class="deco u4">' + ufo(80, '#A6F26B') + '</div>' +
-      [1, 2, 3, 4, 5].map(n => '<img class="deco s' + n + '" src="assets/estrela' + n + '.png" alt="">').join('');
+      [1, 2, 3, 4, 5].map(n => '<img class="deco s' + n + '" src="assets/star-' + n + '.svg" alt="">').join('');
     document.getElementById('logo').innerHTML = ufo(48, '#F07CC0');
   }
   buildSpace();
