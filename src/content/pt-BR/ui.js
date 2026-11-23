@@ -7,7 +7,7 @@ const plural = (count, one, many) => `${count} ${count === 1 ? one : many}`;
 export const UI = {
   brand: 'learn-mvave',
 
-  nav: { start: 'início', lessons: 'lições', songs: 'músicas', free: 'prática livre', manual: 'manual' },
+  nav: { label: 'Principal', start: 'início', lessons: 'lições', songs: 'músicas', free: 'prática livre', manual: 'manual' },
 
   header: {
     energy: 'energia',

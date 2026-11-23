@@ -54,6 +54,11 @@ export function mountProgressionPlayer(container, { instrument, scope }) {
     });
   }
 
+  function toggle() {
+    if (playing) stop();
+    else start();
+  }
+
   function start() {
     const list = chords();
     playButton.textContent = UI.widgets.progressions.stop;
@@ -70,7 +75,6 @@ export function mountProgressionPlayer(container, { instrument, scope }) {
     run();
   }
 
-  const toggle = () => (playing ? stop() : start());
 
   const bpmSlider = h('input', {
     type: 'range', min: 40, max: 160, value: bpm, 'aria-label': UI.widgets.progressions.tempo,
