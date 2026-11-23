@@ -1,0 +1,86 @@
+/* The SMK-37 drawing. All sizes are in "device pixels" of a 953 x 380 body that is scaled by JavaScript. */
+
+.smk37__scaler { margin: 0 auto; }
+.smk37__body {
+  position: relative;
+  width: 953px;
+  height: 380px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #f1eff3, #d9d6de);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.85);
+  transform: scale(var(--scale, 1));
+  transform-origin: top left;
+  user-select: none;
+  touch-action: none;
+}
+.smk37__body > * { position: absolute; }
+
+.smk37__label { font-size: 9px; font-weight: 600; letter-spacing: 0.12em; color: #7a7585; pointer-events: none; }
+.smk37__logo { font-size: 21px; font-weight: 700; letter-spacing: 0.01em; color: #2b2830; }
+
+/* Focus: dim every group except the focused one. */
+.smk37 [data-group] { transition: opacity 0.2s; }
+.smk37[data-focus='wheels'] [data-group]:not([data-group='wheels']),
+.smk37[data-focus='screen'] [data-group]:not([data-group='screen']),
+.smk37[data-focus='knobs'] [data-group]:not([data-group='knobs']),
+.smk37[data-focus='pads'] [data-group]:not([data-group='pads']),
+.smk37[data-focus='faders'] [data-group]:not([data-group='faders']),
+.smk37[data-focus='buttons'] [data-group]:not([data-group='buttons']),
+.smk37[data-focus='keys'] [data-group]:not([data-group='keys']) { opacity: 0.5; }
+
+/* wheels */
+.smk37__wheel { border-radius: 9px; background: linear-gradient(90deg, #17141b, #3a353f 50%, #17141b); cursor: ns-resize; }
+.smk37__wheel.is-springing .smk37__notch { transition: top 0.2s; }
+.smk37__notch { position: absolute; left: 6px; right: 6px; height: 4px; margin-top: -2px; border-radius: 2px; background: var(--pink); }
+
+/* screen */
+.smk37__screen { box-sizing: border-box; padding: 7px 8px; overflow: hidden; border-radius: 5px; background: #07070a; color: #fff; font-size: 9px; line-height: 1.5; }
+.smk37__screen .is-title { font-size: 11px; font-weight: 700; }
+.smk37__screen div:nth-child(2n + 1):not(.is-title) { color: #f0a060; }
+.smk37__screen-buttons { display: flex; gap: 4px; }
+.smk37__screen-buttons span { flex: 1; border-radius: 3px; background: #2a2730; }
+
+/* knobs */
+.smk37__knob {
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5a5461, #17141b);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4), inset 0 0 0 2px #2a2530;
+  cursor: ns-resize;
+  transform: rotate(var(--turn, 0deg));
+}
+.smk37__knob i { position: absolute; left: 50%; top: 4px; width: 3px; height: 9px; margin-left: -1.5px; border-radius: 2px; background: var(--pink-soft); }
+
+/* pads */
+.smk37__pad { box-sizing: border-box; border-radius: 6px; background: #bdeff6; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6); cursor: pointer; transition: background 0.1s; }
+.smk37__pad--row1 { background: #e1cbf8; }
+.smk37__pad.is-target { background: linear-gradient(180deg, var(--mint-soft), var(--mint)); box-shadow: 0 0 0 3px rgba(142, 227, 210, 0.55), 0 0 26px rgba(142, 227, 210, 0.9); }
+.smk37__pad.is-down { background: var(--pink); }
+.smk37__transport { text-align: center; font-size: 10px; font-weight: 700; color: #e08a4a; pointer-events: none; }
+
+/* faders and extra buttons */
+.smk37__slot { border-radius: 2px; background: #b3aebb; }
+.smk37__cap { border-radius: 3px; background: linear-gradient(180deg, #3a353f, #1b181f); cursor: ns-resize; }
+.smk37__button { border-radius: 3px; background: #2a2730; }
+
+/* keys */
+.smk37__keybed { left: 0; width: 953px; height: 172px; }
+.smk37__key { position: absolute; top: 0; box-sizing: border-box; cursor: pointer; }
+.smk37__key.is-white { border-right: 1px solid #b9b4c0; border-radius: 0 0 5px 5px; background: linear-gradient(180deg, #fff, #ece8f0); }
+.smk37__key.is-black { z-index: 2; border-radius: 0 0 4px 4px; background: linear-gradient(180deg, #2b2830, #0e0c10); box-shadow: 0 2px 3px rgba(0, 0, 0, 0.35); }
+.smk37__key-label { position: absolute; left: 0; right: 0; bottom: 12px; text-align: center; font-size: 12px; font-weight: 500; line-height: 1.1; white-space: pre-line; color: #5a4a6a; pointer-events: none; }
+.smk37__key.is-black .smk37__key-label { bottom: 6px; font-size: 9px; color: #e2d6ec; }
+.smk37__key.is-middle-c::after { content: ''; position: absolute; left: 50%; bottom: 32px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #e0589a; }
+.smk37__badge { position: absolute; left: 50%; bottom: 34px; display: none; width: 22px; height: 22px; margin-left: -11px; border-radius: 50%; background: #140a1e; color: var(--mint); font-size: 12px; font-style: normal; font-weight: 700; line-height: 22px; text-align: center; pointer-events: none; }
+.smk37__key.has-badge .smk37__badge { display: block; }
+.smk37__key.is-black.has-badge .smk37__badge { bottom: 10px; }
+
+.smk37__key.is-hint { background: linear-gradient(180deg, #fce3ee, #f9c3dc); }
+.smk37__key.is-black.is-hint { background: linear-gradient(180deg, #b7508a, #7e2d5c); }
+.smk37__key.is-root { background: linear-gradient(180deg, #fff4bf, #f3e59a); }
+.smk37__key.is-black.is-root { background: linear-gradient(180deg, #c9b24a, #8e7a1f); }
+.smk37__key.is-target, .smk37__key.is-ok { background: linear-gradient(180deg, var(--mint-soft), var(--mint)); box-shadow: 0 0 30px rgba(142, 227, 210, 0.9); }
+.smk37__key.is-black.is-target, .smk37__key.is-black.is-ok { background: linear-gradient(180deg, #3dbfa6, #1f8d79); }
+.smk37__key.is-wrong { background: linear-gradient(180deg, #ffd0db, var(--bad)) !important; }
+.smk37__key.is-down { background: linear-gradient(180deg, #fce3ee, var(--pink)) !important; transform: translateY(1px); }
+.smk37__key.is-black.is-down { background: linear-gradient(180deg, #d6609f, #a63a78) !important; }
+.smk37 .is-dragging { filter: brightness(1.15); }

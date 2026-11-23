@@ -1,0 +1,27 @@
+/* Design tokens: colors, fonts and sizes used everywhere. */
+:root {
+  --bg: #06030b;
+  --text: #f4eaf7;
+  --text-soft: #e2d6ec;
+  --muted: #bba9c9;
+
+  --pink: #f59ac4;
+  --pink-soft: #f9c9df;
+  --pink-link: #f9b8d8;
+  --mint: #8ee3d2;
+  --mint-soft: #c6f3ea;
+  --sun: #f3e59a;
+  --ink: #1a0a1e;
+  --bad: #ff7a9c;
+
+  --surface: rgba(16, 8, 26, 0.78);
+  --surface-soft: rgba(10, 5, 16, 0.55);
+  --line: rgba(245, 154, 196, 0.28);
+  --line-strong: rgba(245, 154, 196, 0.6);
+  --segment-off: rgba(244, 234, 247, 0.14);
+
+  --font: Poppins, Verdana, system-ui, sans-serif;
+  --radius: 10px;
+  --radius-lg: 14px;
+  --header-height: 72px;
+}

@@ -1,0 +1,54 @@
+/* Reset and typography. */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { color-scheme: dark; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.6 var(--font);
+}
+
+a { color: var(--pink-link); }
+a:hover { color: #fff; }
+:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+h1, h2, h3 { margin: 0; line-height: 1.15; letter-spacing: -0.02em; color: #fff; }
+p { margin: 0 0 0.8em; }
+ul, ol { margin: 0 0 0.8em; padding-left: 1.3em; }
+li { margin: 0.2em 0; }
+b { color: #fff; }
+.muted { color: var(--muted); font-size: 0.92em; }
+
+kbd {
+  padding: 0 0.35em;
+  border: 1px solid rgba(187, 169, 201, 0.6);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  font: 0.85em ui-monospace, monospace;
+}
+code { padding: 0.05em 0.3em; border-radius: 4px; background: rgba(255, 255, 255, 0.08); font-size: 0.9em; }
+pre { overflow-x: auto; padding: 0.8rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(0, 0, 0, 0.35); }
+pre code { padding: 0; background: none; }
+
+.table { display: block; max-width: 100%; margin: 0.6rem 0; overflow-x: auto; border-collapse: collapse; font-size: 0.92rem; }
+.table th, .table td { padding: 0.35rem 0.7rem; border: 1px solid var(--line); text-align: left; }
+.table th { background: rgba(245, 154, 196, 0.12); color: var(--pink-soft); }
+
+details { margin: 0.5rem 0; padding: 0.5rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-soft); }
+summary { cursor: pointer; font-weight: 600; color: var(--pink-soft); }
+
+.callout { margin: 0.8rem 0; padding: 0.45rem 1rem; border-left: 4px solid var(--muted); border-radius: var(--radius); background: rgba(244, 234, 247, 0.06); }
+.callout p { margin: 0.2rem 0 0; }
+.callout--try { border-color: var(--pink); background: rgba(245, 154, 196, 0.1); }
+.callout--warn { border-color: var(--sun); background: rgba(243, 229, 154, 0.09); }
+
+.page-message { padding: 2rem; text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

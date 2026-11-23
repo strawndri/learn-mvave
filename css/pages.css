@@ -1,0 +1,56 @@
+/* Pages that are not the two-halves layout: the lesson list and the "lesson done" screen. */
+
+.map, .done { max-width: 820px; margin: 0 auto; padding: 8px 24px 64px; }
+.map { margin-bottom: 40px; padding-top: 24px; border-radius: var(--radius-lg); background: rgba(6, 3, 11, 0.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.done { background: rgba(6, 3, 11, 0.62); border-radius: var(--radius-lg); padding-top: 28px; }
+
+/* ---------- lesson list ---------- */
+.map__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 24px; margin: 16px 0 24px; }
+.map__head h1 { font-size: 32px; }
+.map__head p { margin: 0; }
+.map__head .segments { flex: 0 1 320px; min-width: 200px; }
+
+.map__resume { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; margin-bottom: 32px; padding: 20px 24px; border: 1.5px solid var(--pink); border-radius: var(--radius-lg); background: rgba(245, 154, 196, 0.08); }
+.map__resume p { margin: 0; }
+.map__resume-title { font-size: 22px; font-weight: 600; color: #fff; }
+
+.map__module { margin-bottom: 28px; }
+.map__module h2 { display: flex; align-items: baseline; gap: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--line); font-size: 18px; }
+.map__module h2 small { margin-left: auto; font-size: 12px; font-weight: 400; color: var(--muted); }
+.map__numeral { font-size: 22px; color: var(--pink-soft); }
+.map__rows { margin: 0; padding: 0; list-style: none; }
+.map__row { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto auto; align-items: center; gap: 14px; padding: 14px 10px; border-bottom: 1px solid var(--line); border-radius: var(--radius); color: var(--text); text-decoration: none; }
+.map__row:hover { background: rgba(245, 154, 196, 0.08); color: var(--text); }
+.map__number { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.map__row-title { display: flex; flex-direction: column; }
+.map__row-title b { font-size: 15px; font-weight: 500; }
+.map__row-title small { font-size: 12px; color: var(--muted); }
+.map__status { padding: 2px 10px; border: 1px solid var(--line-strong); border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; color: var(--pink-soft); }
+.map__status.is-done { border-color: rgba(142, 227, 210, 0.5); background: rgba(142, 227, 210, 0.16); color: var(--mint); }
+.map__status.is-current { border-color: var(--pink); background: var(--pink); color: #140a1c; }
+.map__action { min-width: 64px; font-size: 13px; font-weight: 600; text-align: right; text-decoration: underline; text-underline-offset: 3px; color: var(--pink-link); }
+
+/* ---------- lesson done ---------- */
+.done { max-width: 720px; display: flex; flex-direction: column; gap: 20px; }
+.done__label { margin: 0; font-size: 13px; font-weight: 600; color: var(--mint); }
+.done h1 { font-size: clamp(26px, 3vw, 34px); }
+.done__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.done__stat { display: flex; flex-direction: column; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: rgba(245, 154, 196, 0.05); }
+.done__stat b { font-size: 20px; }
+.done__stat span { font-size: 12px; color: var(--muted); }
+.done__next { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 16px; border: 1.5px solid var(--pink); border-radius: 12px; background: rgba(245, 154, 196, 0.08); }
+.done__next p { margin: 0; }
+.done__next-title { font-size: 16px; font-weight: 600; color: #fff; }
+.done__buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.done__note { font-size: 13px; font-weight: 600; color: var(--pink-soft); }
+.done__links { display: flex; justify-content: space-between; font-size: 14px; }
+
+/* ---------- free play ---------- */
+.free__tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; }
+.free__tool { padding: 8px 0; }
+
+@media (max-width: 700px) {
+  .map__row { grid-template-columns: 28px minmax(0, 1fr); }
+  .map__status, .map__action { grid-column: 2; justify-self: start; }
+  .widget__columns { grid-template-columns: 1fr; }
+}

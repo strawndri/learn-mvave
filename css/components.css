@@ -1,0 +1,89 @@
+/* Buttons, form controls, chips and other small pieces used by pages and widgets. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--pink-soft);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn:hover { background: rgba(245, 154, 196, 0.12); color: var(--pink-soft); }
+.btn--primary { border-color: var(--pink); background: var(--pink); color: var(--ink); }
+.btn--primary:hover { background: var(--pink); color: var(--ink); filter: brightness(1.08); }
+.btn--big { min-height: 50px; padding: 0 30px; font-size: 16px; }
+.btn.is-active { border-color: rgba(142, 227, 210, 0.6); background: rgba(142, 227, 210, 0.16); color: var(--mint); }
+.btn--primary.is-active { border-color: var(--mint); background: var(--mint); color: var(--ink); }
+
+.link { padding: 0; border: 0; background: none; color: var(--pink-link); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+select {
+  min-height: 38px;
+  max-width: 100%;
+  padding: 0.3rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: rgba(10, 5, 16, 0.8);
+  color: var(--text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+input[type='range'], input[type='checkbox'] { accent-color: var(--pink); }
+input[type='checkbox'] { width: 18px; height: 18px; vertical-align: middle; }
+.search, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(249, 201, 223, 0.7);
+  border-radius: var(--radius);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+}
+.search { max-width: 420px; height: 38px; padding-top: 0; padding-bottom: 0; }
+textarea { resize: vertical; }
+
+.field { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.9rem; }
+
+/* A row of thin segments (progress). --count is set from JavaScript. */
+.segments { display: grid; grid-template-columns: repeat(var(--count), minmax(0, 1fr)); gap: 3px; }
+.segments i { display: block; height: 6px; border-radius: 2px; background: var(--segment-off); }
+.segments i.is-done { background: var(--mint); }
+.segments i.is-current { background: var(--pink); }
+
+.bar { height: 8px; margin: 0.3rem 0; overflow: hidden; border-radius: 999px; background: var(--segment-off); }
+.bar i { display: block; width: 0; height: 100%; background: var(--mint); transition: width 0.2s; }
+
+.note-chip {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3rem;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(245, 154, 196, 0.14);
+  color: #fff;
+  font-weight: 700;
+}
+.note-chip small { min-height: 0.9rem; color: var(--muted); font-size: 0.7rem; font-weight: 400; }
+.note-chip.is-root { border-color: var(--sun); background: var(--sun); color: #2a2200; }
+.note-chip.is-root small { color: #5e5110; }
+
+.pill { display: inline-block; margin: 0 0.4rem 0.4rem 0; padding: 0.2rem 0.7rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(245, 154, 196, 0.08); font-size: 0.88rem; }
+.pill.is-on { border-color: rgba(142, 227, 210, 0.5); background: rgba(142, 227, 210, 0.16); color: var(--mint); }
+
+/* Feedback line: neutral, good or bad. */
+.status { min-height: 1.5rem; font-size: 0.95rem; font-weight: 500; }
+.status.is-good, .status.is-bad { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 10px 14px; border-radius: 12px; }
+.status.is-good { border: 1px solid rgba(142, 227, 210, 0.5); background: rgba(142, 227, 210, 0.12); color: var(--mint-soft); }
+.status.is-bad { border: 1px solid rgba(245, 154, 196, 0.5); background: rgba(245, 154, 196, 0.12); color: var(--pink-soft); }

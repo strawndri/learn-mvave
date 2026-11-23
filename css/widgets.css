@@ -1,0 +1,93 @@
+/* The interactive tools shown under the lesson text. */
+
+.widget { margin: 0.4rem 0; }
+.widget--compact { margin: 0; }
+.widget__row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem; margin: 0.6rem 0; }
+.widget__columns { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.widget__big { margin: 0.3rem 0; font-size: 1.6rem; font-weight: 700; color: #fff; }
+.widget__now { font-size: 1.2rem; font-weight: 700; color: #fff; }
+.widget__now-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.2rem 1rem; min-height: 2.2rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.6rem 0; }
+
+/* metronome */
+.metronome { text-align: center; }
+.metronome__bpm { font-size: 1.1rem; }
+.metronome__bpm b { font-size: 2.6rem; color: #fff; }
+.metronome input[type='range'] { width: min(100%, 360px); }
+.metronome .widget__row { justify-content: center; }
+.metronome__dots { display: flex; justify-content: center; gap: 0.6rem; margin: 0.5rem 0; }
+.metronome__dot { width: 20px; height: 20px; border-radius: 50%; background: var(--segment-off); }
+.metronome__dot.is-first { outline: 2px solid var(--pink); outline-offset: 2px; }
+.metronome__dot.is-on { background: var(--mint); transform: scale(1.2); }
+
+/* chord progression */
+.chord-cards { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0; }
+.chord-card { display: flex; flex-direction: column; align-items: center; min-width: 4rem; padding: 0.4rem 0.7rem; border: 1.5px solid var(--line); border-radius: 12px; background: rgba(12, 6, 18, 0.6); }
+.chord-card b { font-size: 1.25rem; }
+.chord-card small { color: var(--muted); }
+.chord-card.is-now { border-color: var(--mint); background: rgba(142, 227, 210, 0.14); }
+
+/* song trainer */
+.song-strip { display: flex; gap: 0.3rem; margin: 0.4rem 0; padding: 0.2rem 0; overflow-x: auto; }
+.song-strip__note { flex: none; display: flex; flex-direction: column; align-items: center; min-width: 2.6rem; padding: 0.2rem 0.4rem; border: 1px solid var(--line); border-radius: 9px; background: rgba(12, 6, 18, 0.6); font-weight: 600; color: #fff; }
+.song-strip__note small { min-height: 1rem; font-weight: 400; color: var(--muted); }
+.song-strip__note.is-done { opacity: 0.4; }
+.song-strip__note.is-current { border-color: var(--mint); background: var(--mint); color: #140a1c; }
+.song-strip__note.is-current small { color: #1e4a40; }
+
+/* quizzes */
+.quiz__score { font-size: 0.85rem; color: var(--muted); }
+.quiz__stage { min-height: 2.6rem; margin: 0.4rem 0; }
+.quiz__staff { overflow-x: auto; text-align: center; }
+.quiz__options { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.8rem 0; }
+.quiz__option {
+  min-width: 3.4rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border: 1.5px solid #140a1c;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, #fff, #ede6f2);
+  color: #140a1c;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.quiz__option:hover { box-shadow: 0 0 14px rgba(245, 154, 196, 0.5); }
+.quiz__option.is-right { background: linear-gradient(180deg, var(--mint-soft), var(--mint)); }
+.quiz__option.is-wrong { background: linear-gradient(180deg, #fce3ee, var(--pink)); }
+
+/* MIDI monitor */
+.monitor__meter span { font-size: 0.85rem; color: var(--muted); }
+.monitor__bend { position: relative; height: 10px; margin: 0.4rem 0 1rem; border-radius: 999px; background: var(--segment-off); }
+.monitor__bend i { position: absolute; left: 50%; top: -4px; width: 6px; height: 18px; margin-left: -3px; border-radius: 3px; background: var(--pink); }
+.monitor__log { max-height: 220px; margin-top: 0.8rem; overflow: auto; font: 0.82rem ui-monospace, monospace; color: var(--muted); }
+.monitor__row { padding: 0.15rem 0; border-bottom: 1px dashed var(--line); }
+.widget__columns label { display: flex; justify-content: space-between; gap: 0.6rem; margin: 0.3rem 0; }
+
+/* study plan and glossary */
+.checklist { padding: 0; list-style: none; }
+.glossary dt { margin-top: 0.8rem; font-weight: 600; color: var(--pink-soft); }
+.glossary dd { margin: 0; }
+
+/* staff (music notation) */
+.staff { max-width: 100%; height: auto; }
+.staff__line { stroke: #e2d6ec; stroke-width: 1.4; }
+.staff__line--brace { stroke-width: 3; }
+.staff__note { fill: #0e0816; stroke: #fff; stroke-width: 2.6; }
+.staff__text { fill: var(--text); }
+.staff__clef { fill: #fff; font-family: 'Noto Music', 'Noto Sans Symbols 2', 'Segoe UI Symbol', 'Apple Symbols', Symbola, FreeSerif, serif; }
+.staff__clef.is-fallback { font-family: Georgia, serif; font-style: italic; }
+.visual-card { overflow-x: auto; margin: 0.4rem 0; text-align: center; }
+
+/* illustrations */
+.illustration--hands { width: 100%; max-width: 440px; height: auto; }
+.illustration__finger { fill: rgba(245, 154, 196, 0.18); stroke: var(--pink); stroke-width: 2; }
+.illustration__number { fill: #fff; font-size: 14px; font-weight: 700; }
+.illustration__caption { fill: var(--muted); font-size: 12px; }
+.illustration__note .is-filled { fill: #fff; }
+.illustration__note .is-open { fill: none; stroke: #fff; stroke-width: 3; }
+.illustration__stem { stroke: #fff; stroke-width: 2.5; }
+.illustration__flag { fill: none; stroke: #fff; stroke-width: 3; }
+.note-values { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 0.6rem 0; }
+.note-values__item { display: flex; flex-direction: column; align-items: center; min-width: 6.4rem; padding: 0.4rem 0.7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-soft); text-align: center; }
+.note-values__item small { color: var(--muted); }

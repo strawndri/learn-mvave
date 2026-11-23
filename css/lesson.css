@@ -1,0 +1,75 @@
+/* The two-halves layout of lesson-like pages: text on the left, the SMK-37 on the right. */
+
+.lesson {
+  display: grid;
+  grid-template-columns: minmax(380px, 40%) minmax(0, 1fr);
+  height: calc(100vh - var(--header-height));
+  min-height: 560px;
+}
+
+/* ---------- left half ---------- */
+.lesson__text {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 24px 48px 28px 56px;
+  background: linear-gradient(90deg, rgba(6, 3, 11, 0.94), rgba(6, 3, 11, 0.82) 75%, rgba(6, 3, 11, 0));
+}
+.lesson__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.lesson__chip {
+  width: 36px;
+  height: 32px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(244, 234, 247, 0.12);
+  color: var(--muted);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.lesson__chip.is-done { background: var(--mint); color: #140a1c; font-weight: 700; }
+.lesson__chip.is-current { background: var(--pink); color: #140a1c; font-weight: 700; }
+.lesson__lesson-name { margin-top: 14px; font-size: 12px; letter-spacing: 0.08em; color: var(--muted); }
+
+/* Grows with its content so the buttons sit right under the text; scrolls only when the content is taller than the screen. */
+.lesson__scroll { flex: 0 1 auto; min-height: 0; margin-top: 18px; padding-right: 8px; overflow-y: auto; }
+.lesson__step-label { margin: 0 0 4px; font-size: 14px; font-weight: 600; color: var(--pink-soft); }
+.lesson__title { font-size: clamp(30px, 3.6vw, 48px); font-weight: 700; line-height: 1.08; }
+.lesson__body { max-width: 460px; margin-top: 14px; font-size: 18px; color: var(--text-soft); }
+.lesson__body ul, .lesson__body ol { font-size: 16px; }
+.lesson__body .table { font-size: 14px; }
+.lesson__tool { margin-top: 14px; }
+
+.lesson__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+.lesson__enter { font-size: 12px; color: var(--muted); }
+.lesson__reward { font-size: 14px; font-weight: 600; color: var(--sun); }
+.lesson__task { min-height: 1.5rem; margin: 10px 0 0; font-size: 14px; color: var(--muted); }
+.lesson__task.is-done { color: var(--mint); font-weight: 600; }
+
+.lesson__hint { display: flex; align-items: flex-end; gap: 12px; margin-top: auto; padding-top: 10px; font-size: 14px; color: var(--text-soft); }
+.lesson__mascot { flex: none; width: 96px; height: auto; transform: rotate(-6deg); filter: drop-shadow(0 0 14px rgba(240, 124, 192, 0.6)) drop-shadow(0 0 3px rgba(255, 255, 255, 0.25)); }
+.lesson__bubble { max-width: 300px; margin: 6px 0 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(245, 154, 196, 0.1); }
+
+.lesson__progress { margin-top: 14px; }
+.lesson__progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 12px; color: var(--muted); }
+
+/* ---------- right half ---------- */
+.stage { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: 28px 32px 28px; }
+.stage__title { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; color: var(--pink-soft); }
+.stage__instrument { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.stage__instrument > .smk37 { width: 100%; }
+.stage__status { display: flex; flex-wrap: wrap; gap: 8px 32px; font-size: 14px; color: var(--muted); }
+.stage__status b { color: #fff; font-weight: 600; }
+.stage__connection { display: inline-flex; align-items: center; gap: 8px; color: var(--text-soft); }
+.stage__connection i { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }
+.stage__connection.is-connected i { background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+
+/* ---------- small screens: text above, instrument below, the page scrolls ---------- */
+@media (max-width: 1000px) {
+  .lesson { display: block; height: auto; }
+  .lesson__text { padding: 16px; background: rgba(6, 3, 11, 0.8); }
+  .lesson__scroll { overflow: visible; }
+  .lesson__mascot { width: 72px; }
+  .stage { padding: 16px; overflow-x: auto; }
+  .stage__instrument { overflow-x: auto; }
+}
