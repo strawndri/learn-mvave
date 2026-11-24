@@ -9,6 +9,7 @@ import { renderDonePage } from './pages/done-page.js';
 import { renderFreePlayPage } from './pages/free-play-page.js';
 import { renderLessonMapPage } from './pages/lesson-map-page.js';
 import { renderLessonPage } from './pages/lesson-page.js';
+import { renderReferencesPage } from './pages/references-page.js';
 import { initSettings } from './state/settings.js';
 import { h } from './utils/dom.js';
 
@@ -34,6 +35,7 @@ startRouter({
     lesson: renderLessonPage,
     done: renderDonePage,
     free: renderFreePlayPage,
+    references: renderReferencesPage,
   },
 });
 

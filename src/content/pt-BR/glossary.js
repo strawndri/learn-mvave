@@ -16,15 +16,17 @@ export const GLOSSARY = [
   ['Inversão', 'O mesmo acorde com outra nota embaixo.'],
   ['Latência', 'O atraso entre apertar a tecla e ouvir o som.'],
   ['MIDI', 'Mensagens que dizem qual tecla, com que força e quando. Não é som.'],
+  ['Modulação', 'Roda que liga o vibrato. Quanto mais alta, mais forte ele fica.'],
   ['Oitava', 'De uma nota até a próxima com o mesmo nome: 12 teclas.'],
   ['Pad', 'Botão quadrado para tocar bateria.'],
   ['Pauta', 'As 5 linhas onde as notas são escritas.'],
-  ['Pitch bend', 'Roda que entorta a altura da nota.'],
+  ['Pitch bend', 'Roda que entorta a altura da nota para cima ou para baixo, sem pular de tecla em tecla. Solta, ela volta ao centro.'],
   ['Pulso', 'A batida fixa da música.'],
   ['Semitom', 'Uma tecla de distância.'],
   ['Sustain', 'Pedal que segura o som depois de soltar a tecla.'],
   ['Sustenido (♯)', 'Sobe a nota meio tom. Dó♯ é a preta à direita do Dó.'],
   ['Tom', 'Duas teclas de distância.'],
   ['Tríade', 'Acorde de três notas.'],
-  ['Velocity', 'A força da tecla, de 1 a 127.']
+  ['Velocity', 'A força da tecla, de 1 a 127.'],
+  ['Vibrato', 'A nota sobe e desce um pouquinho, bem rápido, como se tremesse de leve.']
 ];

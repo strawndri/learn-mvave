@@ -9,6 +9,7 @@ import { mountProgressionPlayer } from './progression-player.js';
 import { mountChordEarQuiz, mountIntervalEarQuiz, mountKeyQuiz, mountNoteEarQuiz, mountStaffQuiz } from './quizzes.js';
 import { mountScaleExplorer } from './scale-explorer.js';
 import { mountSongTrainer } from './song-trainer.js';
+import { mountSoundDemo } from './sound-demo.js';
 import { mountStudyPlan } from './study-plan.js';
 import { createHandsDiagram, createNoteValues } from '../ui/illustrations.js';
 import { createStaff } from '../ui/staff.js';
@@ -38,6 +39,7 @@ export const WIDGETS = {
   fingering: mountFingering,
   studyPlan: mountStudyPlan,
   glossary: mountGlossary,
+  soundDemo: mountSoundDemo,
 };
 
 /** Static pictures a lesson step can show: visual: { name: 'hands' }. */

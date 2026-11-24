@@ -12,11 +12,13 @@ const NAV_ITEMS = [
   { key: 'songs', label: UI.nav.songs, path: 'lesson/songs' },
   { key: 'free', label: UI.nav.free, path: 'free' },
   { key: 'manual', label: UI.nav.manual, path: 'lesson/device' },
+  { key: 'references', label: UI.nav.references, path: 'references' },
 ];
 
 /** Highlighted item of the navigation for a route. */
 export function navKeyFor(routeName, params) {
   if (routeName === 'free') return 'free';
+  if (routeName === 'references') return 'references';
   if (routeName === 'lesson') {
     return { start: 'start', songs: 'songs', device: 'manual' }[params[0]] || 'lessons';
   }

@@ -7,7 +7,7 @@ const plural = (count, one, many) => `${count} ${count === 1 ? one : many}`;
 export const UI = {
   brand: 'learn-mvave',
 
-  nav: { label: 'Principal', start: 'início', lessons: 'lições', songs: 'músicas', free: 'prática livre', manual: 'manual' },
+  nav: { label: 'Principal', start: 'início', lessons: 'lições', songs: 'músicas', free: 'prática livre', manual: 'manual', references: 'referências' },
 
   header: {
     energy: 'energia',
@@ -143,7 +143,20 @@ export const UI = {
     chordLevels: { majorOrMinor: 'Maior ou menor', four: '4 tipos', sevenths: 'Com sétima' },
   },
 
+  references: {
+    title: 'Referências',
+    intro: 'Material externo usado para explicar os termos e os números deste guia. Os textos das lições foram escritos com as minhas palavras.',
+    open: 'abrir',
+  },
+
   widgets: {
+    soundDemo: {
+      play: 'Ouvir o exemplo',
+      bend: 'Você ouve a mesma nota quatro vezes: reta, depois subindo, voltando, descendo e voltando. Dura 4 segundos.',
+      vibrato: 'Primeiro a nota reta, depois com vibrato leve e depois com vibrato forte. Dura 6 segundos.',
+      velocity: 'A mesma tecla, primeiro tocada de leve e depois com força. Dura 2 segundos.',
+      sustain: 'Três notas soltas uma a uma, e depois as mesmas três com o pedal pressionado. Dura 5 segundos.',
+    },
     quiz: {
       level: 'Nível',
       score: (correct, asked, streak) => `acertos <b>${correct}</b> de ${asked} · seguidas <b>${streak}</b>`,

@@ -54,3 +54,11 @@
   .map__status, .map__action { grid-column: 2; justify-self: start; }
   .widget__columns { grid-template-columns: 1fr; }
 }
+
+/* ---------- references ---------- */
+.refs { max-width: 820px; margin: 0 auto 40px; padding: 24px 24px 40px; border-radius: var(--radius-lg); background: rgba(6, 3, 11, 0.62); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.refs h1 { font-size: 32px; }
+.refs__list { margin: 20px 0; padding: 0; list-style: none; }
+.refs__list li { padding: 14px 0; border-bottom: 1px solid var(--line); }
+.refs__list a { font-weight: 600; color: var(--pink-link); overflow-wrap: anywhere; }
+.refs__list p { margin: 4px 0 0; }
